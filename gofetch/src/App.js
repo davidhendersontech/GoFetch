@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Game from "./Containers/Game";
+import React, { Component } from "react";
+const gameURL = "https://deckofcardsapi.com/api/deck/new/draw/?count=0";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount() {
+    fetch(gameURL)
+      .then((response) => response.json())
+      .then((deck) => {
+        this.setState({ deckID: deck.deck_id });
+      });
+  }
+
+  state = {
+    deckID: [],
+  };
+
+  render() {
+    return (
+      <div>
+        <Game deckID={this.state.deckID} />
+      </div>
+    );
+  }
 }
-
 export default App;
