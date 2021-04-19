@@ -1,15 +1,23 @@
-import React, { Component } from "react";
+import React from 'react'
+import Hand from '../Components/Hand'
 
-class Game extends Component {
-  componentDidMount() {
-    const drawURL = `https://deckofcardsapi.com/api/deck/${this.props.deckID}/draw/?count=7`;
-    fetch(drawURL)
-      .then((response) => response.json())
-      .then(console.log);
+export default function Game(props) {
+
+  const displayCards = () => {
+    let pilesArray = [];
+    if(props.game){
+      for(let pile in props.game.piles){
+        pilesArray.push(pile)
+      }
+      return pilesArray.map(pile => {
+       return <Hand pile={pile} key={pile} deckID={props.game.deck_id}/>
+      })
+    } 
   }
-  render() {
-    return <div></div>;
-  }
+
+  return (
+    <div>
+      {displayCards()}
+    </div>
+  )
 }
-
-export default Game;
