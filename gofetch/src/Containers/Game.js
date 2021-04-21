@@ -6,6 +6,7 @@ export default function Game(props) {
     const [yourTurn, setYourTurn] = useState(true)
     const [selectedCard, setSelectedCard] = useState('')
     const [selectedPile, setSelectedPile] = useState('')
+    const [cardsToMove, setCardsToMove] = useState('')
     const [currentlyMatching, setCurrentlyMatching] = useState(false)
 
     const handleClick = () => {
@@ -41,8 +42,6 @@ export default function Game(props) {
         } else {
           console.log("It's not your turn!")
         }
-          
-     
     }
 
     const getCardsFromPile = async (deckID,pile) => {
@@ -52,20 +51,39 @@ export default function Game(props) {
         return res.piles[pile].cards
     }
 
+    const getMatchesInPile = async (card,pile)=> {
+     
+      
+      getCardsFromPile(props.game.deck_id, pile)
+      .then(cardsInHand => {
+        let cardWithoutSuit = card.substring(0,1)
+        const matchingCards = cardsInHand
+          .filter(card => card.code.substring(0,1)  === cardWithoutSuit)
+          .map(card => card.code)
+          .join(',')
+        setCardsToMove(matchingCards)
+        console.log('inside',cardsToMove,'matching',matchingCards)
+      })
+      
+    }
+
 
     useEffect(() => {
-      if(yourTurn && !currentlyMatching){ // your picking phase
-        setSelectedCard('')
-        setSelectedPile('')
-      } else if(yourTurn && currentlyMatching){ // your matching phase
-        //matching code here
-      } else if(!yourTurn && !currentlyMatching){ // ai's picking phase
-
-      } else if(!yourTurn && currentlyMatching){ // ai's matching phase
-
+      if(yourTurn){
+        console.log('pick a card and a player')
+      } else {
+        if(selectedPile && selectedCard){
+          getMatchesInPile(selectedCard,selectedPile)
+          .then(()=>{
+            
+          })
+          
+        } else {
+          console.log('please choose a card and a player')
+        }
       }
-
-
+      setSelectedPile('')
+      setSelectedCard('')
 
     }, [yourTurn])
 
