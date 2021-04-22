@@ -1,97 +1,43 @@
-import React,{useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import Hand from '../Components/Hand'
+
 export default function Game(props) {
 
+    const [whosTurn, setWhosTurn] = useState('player1')
+    
+    
+    const nextPlayersTurn = () => {
+        let currentPlayerIndex = props.piles
+            .findIndex((pileName) => whosTurn === pileName )
 
-    const [yourTurn, setYourTurn] = useState(true)
-    const [selectedCard, setSelectedCard] = useState('')
-    const [selectedPile, setSelectedPile] = useState('')
-    const [cardsToMove, setCardsToMove] = useState('')
-    const [currentlyMatching, setCurrentlyMatching] = useState(false)
-
-    const handleClick = () => {
-        if(yourTurn){
-            setYourTurn(!yourTurn)
-            setCurrentlyMatching(!currentlyMatching)
-        } else {
-            setYourTurn(!yourTurn)
-        }
+        let newIndex = currentPlayerIndex === 3 ?
+            currentPlayerIndex = 0 : 
+            currentPlayerIndex + 1
+        const nextPlayer = props.piles[newIndex]
+        setWhosTurn(nextPlayer)
     }
-    const displayCards = () => {
-        let pilesArray = [];
-        if(props.game){
-          for(let pile in props.game.piles){
-            pilesArray.push(pile)
-          }
-          return pilesArray.map(pile => {
-           return <Hand 
-            pile={pile} 
-            key={pile} 
-            deckID={props.game.deck_id} 
-            pickCard={pickCard}
-            getCardsFromPile={getCardsFromPile}
+
+    const displayHands = () => {
+        return props.piles.map(hand => {
+            return <Hand 
+                deckID={props.game.deck_id}
+                key={hand}
+                player={hand}
+                yourTurn={whosTurn === hand ? true : false}
             />
-          })
-        } 
-      }
-    const pickCard = (card,pile) => {
-        if(pile === 'player1' && yourTurn){
-          setSelectedCard(card)
-        } else if (pile !== 'player1' && yourTurn){
-          setSelectedPile(pile)
-        } else {
-          console.log("It's not your turn!")
-        }
+        })
     }
 
-    const getCardsFromPile = async (deckID,pile) => {
-        const pileURL = `https://deckofcardsapi.com/api/deck/${deckID}/pile/${pile}/list/`
-        let res = await fetch(pileURL)
-        res = await res.json()
-        return res.piles[pile].cards
+    const pickPile = () => {
+        
     }
 
-    const getMatchesInPile = async (card,pile)=> {
-     
-      
-      getCardsFromPile(props.game.deck_id, pile)
-      .then(cardsInHand => {
-        let cardWithoutSuit = card.substring(0,1)
-        const matchingCards = cardsInHand
-          .filter(card => card.code.substring(0,1)  === cardWithoutSuit)
-          .map(card => card.code)
-          .join(',')
-        setCardsToMove(matchingCards)
-        console.log('inside',cardsToMove,'matching',matchingCards)
-      })
-      
-    }
-
-
-    useEffect(() => {
-      if(yourTurn){
-        console.log('pick a card and a player')
-      } else {
-        if(selectedPile && selectedCard){
-          getMatchesInPile(selectedCard,selectedPile)
-          .then(()=>{
-            
-          })
-          
-        } else {
-          console.log('please choose a card and a player')
-        }
-      }
-      setSelectedPile('')
-      setSelectedCard('')
-
-    }, [yourTurn])
-
+    
 
     return (
-        <div>
-            {displayCards()}
-            <button onClick={()=>handleClick()}>{yourTurn ? "End your turn" : "Start your turn"}</button>
+        <div className="game">
+            {displayHands()}
+            <button onClick={() => nextPlayersTurn()}>ToggleTurn</button>
         </div>
     )
 }

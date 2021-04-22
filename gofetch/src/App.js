@@ -1,11 +1,13 @@
 import "./App.css";
-import Game from "./Containers/Game";
+import Loading from './Components/Loading'
+import Game from './Containers/Game'
 import React, { Component } from "react";
 const gameURL = "https://deckofcardsapi.com/api/deck/new/draw/?count=0";
 
 class App extends Component {
   componentDidMount() {
     this.makePiles()
+      .then(res => this.setState({game : res}))
   }
 
   async makePiles() {
@@ -27,22 +29,27 @@ class App extends Component {
           let pileRes = await fetch(pileURL + cards)
           pile = await pileRes.json() 
         }
-        this.setState({  //put piles into game state
-          game: pile
-        })
+        return pile
   }
 
 
   state = {
-    game: {},
+    game: null,
+    piles: [
+      'player1',
+      'player2',
+      'player3',
+      'player4'
+    ]
   };
 
    render() {
     return (
-      <div>
-        <Game 
-          game={this.state.game}
-        />
+      <div className='app'>
+        {this.state.game ?
+          <Game game={this.state.game} piles={this.state.piles}/> :
+          <Loading />
+        }
       </div>
     );
   }
