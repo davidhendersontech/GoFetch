@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -72,7 +72,7 @@ h3 {
   align-items: center;
 }
 
-/* .glowing {
+.glowing {
   z-index: 0;
   position: relative;
   min-width: 750px;
@@ -149,4 +149,4 @@ h3 {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
