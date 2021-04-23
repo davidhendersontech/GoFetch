@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function Card({image, code, value, pile, pickCard }) {
 
-    return (
-        <div className='card' onClick={() => pickCard(pile,value)}  >
-               
-                {code}
-            {/* <img src={props.pile === 'player1'? props.card.image : 'https://opengameart.org/sites/default/files/card%20back%20red.png'} width="50" height="75" alt={props.card.code} />  */}
-        </div>
-    )
+export default function Card(props) {
+  return (
+    <div className="card">
+      <h3>{props.card.code}</h3>
+      <img src={props.card.image} />
+    </div>
+  );
+
 }
