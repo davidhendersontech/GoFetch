@@ -1,8 +1,8 @@
 import "./App.css";
 import Game from "./Containers/Game";
 import React, { Component } from "react";
+// import Background from "./Components/Background";
 const gameURL = "https://deckofcardsapi.com/api/deck/new/draw/?count=0";
-
 class App extends Component {
   componentDidMount() {
     this.makePiles();
@@ -41,7 +41,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <h1>Go Fish! 🐟</h1>
+        <h1>♤ ♧ Go Fetch! ♥︎ ♦︎</h1>
         <Game game={this.state.game} />
       </div>
     );
