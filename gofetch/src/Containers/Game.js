@@ -78,6 +78,7 @@ export default function Game(props) {
    
     const pickCard = (pile, card) => {
         if(pile === 'player1' && whosTurn === 'player1'){
+            
             setPlayersSelectedCard(card)
         } else if(pile !== 'player1' && whosTurn === 'player1'){
             setPlayersSelectedPile(pile)
@@ -187,9 +188,7 @@ export default function Game(props) {
             .then(setUpdateHands(true))
     }
     
-    const sortCards = () => {
-
-    }
+   
 
     const doAiTurn = (aiPlayer) => {
         
@@ -237,7 +236,7 @@ export default function Game(props) {
         <div className="game">
             <h1>Current Player : {whosTurn}</h1>
             <button onClick={() => nextPlayersTurn()}>ToggleTurn</button>
-            <button onClick={() => sortCards(player1Cards)}>sort</button>
+            
             {displayHands()}
             
         </div>

@@ -29,7 +29,6 @@ const Background = () => {
       </div>
       <br></br>
       <br></br>
-      <p>why are you looking here?</p>
     </div>
   );
 };

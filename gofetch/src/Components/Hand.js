@@ -13,6 +13,7 @@ export default function Hand(props) {
                     key={card.code}
                     image={card.image}
                     code={card.code}
+                    card={card}
                     value={card.value}
                     pile={props.player}
                     pickCard={props.pickCard}

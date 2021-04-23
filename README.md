@@ -1,30 +1,22 @@
 # GoFetch
 a simple card game made with the deckofcardsapi.com api
 
+![screenshot of app](index.png)
 
-# TODO
-- [ ] Implement click functionality on cards    
-	- [x] click card to choose card      
-	- [x] click other player to choose pile to search     
-	- [x] see if card is in pile     
-		- [ ] if it is add to hand     
-		- [ ] else draw card from middle     
-- [ ] Implement basic AI     
-	- [ ] Computer picks card to ask for     
-	- [ ] computer picks player to ask from     
-	- [ ] add / remove as neccassary     
-- [ ] Implement Game logic     
-	- [ ] if player hits 4 of same cards add point     
-	- [ ] game ends if no more cards to draw      
-		- [ ] each player gets one more turn     
-		- [ ] player with most points wins    
-- [ ] Styling     
-	- [x] render hands     
-		- [x] make your cards show     
-		- [x] make opponents cards not show     
-	- [ ] render deck in middle     
-- [ ] Game over / who won screen    
-	- [ ] play again?     
-	- [ ] display game stats     
-	- [ ] add to backend to keep track of wins?    
-		- [ ] login for that      
+## Install
+Simply clone down this repo, change into the directory and run: 
+``` npm install ```
+``` npm start ```
+
+## How to play
+	The game starts on your turn. Click one of your cards and then click another    
+	player to ask them for the card. If they have a match the card will be moved   
+	into your hand.
+
+## Technologies 
+	This app uses react as a front end and deckofcardsapi.com for creating and managing    
+	decks of cards.
+
+## Contact
+	[David Henderson](https://github.com/notdavidhenderson)
+	[Jo Siciliano](https://github.com/joannsiciliano)
