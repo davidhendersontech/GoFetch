@@ -12,6 +12,7 @@ export default function Game(props) {
     const [player2Cards, setPlayer2Cards] = useState('')
     const [player3Cards, setPlayer3Cards] = useState('')
     const [player4Cards, setPlayer4Cards] = useState('')
+    const [updateHands, setUpdateHands] = useState(false)
     
 
     const nextPlayersTurn = () => {
@@ -22,6 +23,7 @@ export default function Game(props) {
             currentPlayerIndex = 0 : 
             currentPlayerIndex + 1
         const nextPlayer = props.piles[newIndex]
+        
         setLastPlayer(whosTurn)
         setWhosTurn(nextPlayer)
     }
@@ -108,8 +110,34 @@ export default function Game(props) {
                     })
             })
         }
+
         
     }
+
+    const convertValueToNumeric = (card) => {
+        let cardValue 
+        switch(card){
+            case 'JACK':
+                cardValue = 11
+                break;
+            case 'QUEEN':
+                cardValue = 12
+                break;
+            case 'KING':
+                cardValue = 13
+                break;
+            case 'ACE':
+                cardValue = 14
+                break;
+            default:
+                cardValue = card
+                break;
+        }
+        cardValue = parseInt(cardValue)
+        return cardValue
+    }
+
+    
 
     const getCardsFromPile = async (deckID, player) => {
         let response = await fetch(`https://deckofcardsapi.com/api/deck/${deckID}/pile/${player}/list/`)
@@ -151,30 +179,66 @@ export default function Game(props) {
                 }
             })
     }
+
     const moveCards = (cards, recievingPlayer) => {
         console.log(`https://deckofcardsapi.com/api/deck/${props.game.deck_id}/pile/player1/list/`)
         fetch(`https://deckofcardsapi.com/api/deck/${props.game.deck_id}/pile/${recievingPlayer}/add/?cards=${cards}`)
+            .then(setUpdateHands(true))
+    }
+    
+    const sortCards = () => {
+
+    }
+
+    const doAiTurn = (aiPlayer) => {
+        
+        getCardsFromPile(props.game.deck_id, aiPlayer)
+            .then(cards => {
+                let pileChosen = Math.floor(Math.random()*4)
+                let cardChosen = cards[Math.floor(Math.random()*cards.length)]
+                let index = props.piles.findIndex((pileName) => (whosTurn === pileName))
+                console.log('card', cardChosen.code, 'index', index, 'pileChosen', pileChosen)
+                if(pileChosen !== index){
+                    console.log('card chosen',cardChosen.code,'ai player', aiPlayer)
+                    moveCards(cardChosen.code, aiPlayer)
+                }
+                
+            })
+            .then(nextPlayersTurn())
     }
 
     useEffect(()=> {
         console.log('turn changed', whosTurn)
         if(playersSelectedPile && playersSelectedCard){
-            
+
             findMatches(playersSelectedCard, playersSelectedPile)
             setPlayersSelectedCard('')
             setPlayersSelectedPile('')
         }
+        
         setPlayersHands()
+        
+        if(whosTurn !== 'player1'){
+            doAiTurn(whosTurn)
+        }
 
-    }, [whosTurn])
+
+        if(updateHands){
+            setUpdateHands(false)
+        }
+    }, [whosTurn, updateHands])
+
+   
     
     
 
     return (
         <div className="game">
             <h1>Current Player : {whosTurn}</h1>
-            {displayHands()}
             <button onClick={() => nextPlayersTurn()}>ToggleTurn</button>
+            <button onClick={() => sortCards(player1Cards)}>sort</button>
+            {displayHands()}
+            
         </div>
     )
 }
