@@ -6,9 +6,9 @@ import React, { Component } from "react";
 const gameURL = "https://deckofcardsapi.com/api/deck/new/draw/?count=0";
 class App extends Component {
   componentDidMount() {
-
+    
     this.makePiles()
-      .then(res => this.setState({game : res}))
+      .then(res => this.setState({game: res}))
   }
 
   async makePiles() {
@@ -31,21 +31,10 @@ class App extends Component {
           pile = await pileRes.json() 
         }
         return pile
+        
   }
-
-
-      for (let card of drawnCards.cards) {
-        cards = card.code + "," + cards;
-      }
-      let pileRes = await fetch(pileURL + cards);
-      pile = await pileRes.json();
-    }
-    this.setState({
-      //put piles into game state
-      game: pile,
-    });
-  }
-
+  
+    
   state = {
     game: null,
     piles: [
@@ -61,7 +50,8 @@ class App extends Component {
 
       <div className="app">
         <h1>♤ ♧ Go Fetch! ♥︎ ♦︎</h1>
-        <Game game={this.state.game} piles={this.state.piles}/>
+        {this.state.game ? <Game game={this.state.game} piles={this.state.piles} /> : <></>}
+        
 
       </div>
     );

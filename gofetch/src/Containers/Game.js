@@ -242,5 +242,6 @@ export default function Game(props) {
             
         </div>
     )
-
+// return(<h1> game</h1>)
+    
 }
