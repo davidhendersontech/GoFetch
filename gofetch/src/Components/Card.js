@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default function Card(props) {
   return (
     <div className="card">
@@ -7,4 +8,5 @@ export default function Card(props) {
       <img src={props.card.image} />
     </div>
   );
+
 }

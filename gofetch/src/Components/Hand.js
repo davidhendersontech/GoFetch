@@ -1,34 +1,31 @@
-import React, { Component } from "react";
-import Card from "./Card";
 
-export default class Hand extends Component {
-  state = {
-    cards: [],
-  };
+import React from 'react'
+import Card from './Card'
 
-  componentDidMount() {
-    const pileURL = `https://deckofcardsapi.com/api/deck/${this.props.deckID}/pile/${this.props.pile}/list/`;
-    fetch(pileURL)
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          cards: res.piles[this.props.pile].cards,
-        });
-      });
-  }
 
-  displayCards() {
-    return this.state.cards.map((card) => {
-      return <Card card={card} />;
-    });
-  }
 
-  render() {
+export default function Hand(props) {
+   
+    const displayCards = () => {
+        if(props.cards){
+            return props.cards.map(card => {
+                return <Card 
+                    key={card.code}
+                    image={card.image}
+                    code={card.code}
+                    value={card.value}
+                    pile={props.player}
+                    pickCard={props.pickCard}
+                />
+            })
+        }
+    }
+        
     return (
-      <div className="hand">
-        <h1>{this.props.pile}</h1>
-        {this.displayCards()}
-      </div>
-    );
-  }
+        <div className='hand' >
+            <h1>{props.player}</h1>
+            {displayCards()}
+        </div>
+    )
+
 }

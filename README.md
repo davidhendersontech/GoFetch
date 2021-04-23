@@ -4,9 +4,9 @@ a simple card game made with the deckofcardsapi.com api
 
 # TODO
 - [ ] Implement click functionality on cards    
-	- [ ] click card to choose card      
-	- [ ] click other player to choose pile to search     
-	- [ ] see if card is in pile     
+	- [x] click card to choose card      
+	- [x] click other player to choose pile to search     
+	- [x] see if card is in pile     
 		- [ ] if it is add to hand     
 		- [ ] else draw card from middle     
 - [ ] Implement basic AI     
@@ -19,9 +19,9 @@ a simple card game made with the deckofcardsapi.com api
 		- [ ] each player gets one more turn     
 		- [ ] player with most points wins    
 - [ ] Styling     
-	- [ ] render hands     
-		- [ ] make your cards show     
-		- [ ] make opponents cards not show     
+	- [x] render hands     
+		- [x] make your cards show     
+		- [x] make opponents cards not show     
 	- [ ] render deck in middle     
 - [ ] Game over / who won screen    
 	- [ ] play again?     
