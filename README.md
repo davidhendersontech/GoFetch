@@ -18,5 +18,7 @@ This app uses react as a front end and deckofcardsapi.com for creating and manag
 decks of cards.
 
 ## Contact
-[David Henderson](https://github.com/notdavidhenderson)
-[Jo Siciliano](https://github.com/joannsiciliano)
+[David's Github](https://github.com/notdavidhenderson)
+[Email David](mailto:me@davidhenderson.tech)
+[Jo's Github](https://github.com/joannsiciliano)
+[Email Jo](mailto:joannsiciliano@gmail.com)
